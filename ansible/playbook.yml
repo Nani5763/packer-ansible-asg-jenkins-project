@@ -2,6 +2,17 @@
 - hosts: all
   become: yes
   tasks:
+    - name: Clean apt cache directory (fix corruption)
+      file:
+        path: /var/lib/apt/lists/
+        state: absent
+
+    - name: Recreate apt lists directory
+      file:
+        path: /var/lib/apt/lists/partial
+        state: directory
+        recurse: yes
+
     - name: Update apt cache
       apt:
         update_cache: yes
