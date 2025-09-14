@@ -1,23 +1,24 @@
 ---
 - hosts: all
-  become: true
+  become: yes
   tasks:
     - name: Update apt cache
       apt:
         update_cache: yes
+        cache_valid_time: 3600
 
-    - name: Install Nginx
+    - name: Install nginx
       apt:
         name: nginx
         state: present
 
-    - name: Enable and start Nginx
+    - name: Enable and start nginx
       service:
         name: nginx
         state: started
-        enabled: true
+        enabled: yes
 
-    - name: Add index.html
+    - name: Deploy index.html
       copy:
         dest: /var/www/html/index.html
-        content: "<h1>Hello from Ansible-built AMI</h1>"
+        content: "<h1>Hello from AMI built by Ansible!</h1>"
