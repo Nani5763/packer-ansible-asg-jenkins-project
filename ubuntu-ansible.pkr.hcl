@@ -21,7 +21,7 @@ source "amazon-ebs" "ubuntu" {
   instance_type    = "t2.micro"
   ami_name         = "ansible-ami-{{timestamp}}"
   ssh_username     = "ubuntu"
-  key_pair_name        = "Ansible+Packer-Manual-Process-key"
+  # key_pair_name        = "Ansible+Packer-Manual-Process-key"
   ssh_private_key_file = "C:/Users/pavan/.ssh/Ansible+Packer-Manual-Process-key.pem"
 
 
