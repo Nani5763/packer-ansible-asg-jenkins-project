@@ -22,7 +22,7 @@ source "amazon-ebs" "ubuntu" {
   ami_name         = "ansible-ami-{{timestamp}}"
   ssh_username     = "ubuntu"
   # key_pair_name        = "Ansible+Packer-Manual-Process-key"
-  ssh_private_key_file = "C:/Users/pavan/.ssh/Ansible+Packer-Manual-Process-key.pem"
+  # ssh_private_key_file = "C:/Users/pavan/.ssh/Ansible+Packer-Manual-Process-key.pem"
 
 
 
