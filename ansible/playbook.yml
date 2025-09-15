@@ -1,42 +1,23 @@
 ---
 - hosts: all
-  become: yes   # <--- ensure root privilege for all tasks
+  become: true
   tasks:
-    - name: Clean apt cache directory (fix corruption)
-      file:
-        path: /var/lib/apt/lists
-        state: absent
-      become: yes   # <--- double ensure with become
-      ignore_errors: yes
-
-    - name: Recreate apt lists directory
-      file:
-        path: /var/lib/apt/lists
-        state: directory
-        mode: '0755'
-      become: yes
-
     - name: Update apt cache
       apt:
         update_cache: yes
-        cache_valid_time: 3600
-      become: yes
 
-    - name: Install nginx
+    - name: Install Nginx
       apt:
         name: nginx
         state: present
-      become: yes
 
-    - name: Enable and start nginx
+    - name: Enable and start Nginx
       service:
         name: nginx
         state: started
-        enabled: yes
-      become: yes
+        enabled: true
 
-    - name: Deploy index.html
+    - name: Add index.html
       copy:
         dest: /var/www/html/index.html
-        content: "<h1>Hello from AMI built by Ansible!</h1>"
-      become: yes
+        content: "<h1>Hello from Ansible-built AMI</h1>"

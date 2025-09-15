@@ -13,7 +13,7 @@ packer {
 
 variable "aws_region" {
   type    = string
-  default = "ap-south-1"
+  default = "us-east-1"
 }
 
 source "amazon-ebs" "ubuntu" {
@@ -21,8 +21,8 @@ source "amazon-ebs" "ubuntu" {
   instance_type    = "t2.micro"
   ami_name         = "ansible-ami-{{timestamp}}"
   ssh_username     = "ubuntu"
-  # key_pair_name        = "Ansible+Packer-Manual-Process-key"
-  # ssh_private_key_file = "C:/Users/pavan/.ssh/Ansible+Packer-Manual-Process-key.pem"
+  key_pair_name        = "mykeytest"
+  ssh_private_key_file = "C:/Users/pavan/.ssh/mykeytest.pem"
 
 
 
@@ -32,7 +32,7 @@ source "amazon-ebs" "ubuntu" {
       root-device-type    = "ebs"
       virtualization-type = "hvm"
     }
-    owners      = ["099720109477"]  # Canonical Ubuntu
+    owners      = ["099720109477"]
     most_recent = true
   }
 }
