@@ -21,10 +21,10 @@ source "amazon-ebs" "ubuntu" {
   instance_type    = "t2.micro"
   ami_name         = "ansible-ami-{{timestamp}}"
   ssh_username     = "ubuntu"  
-  # key_pair_name        = "mykeytest"
+
+  # If you want to use your own key instead of Packer’s temporary one, uncomment:
+  # ssh_keypair_name     = "mykeytest"
   # ssh_private_key_file = "C:\\Users\\pavan\\.ssh\\mykeytest.pem"
-
-
 
   source_ami_filter {
     filters = {
@@ -32,7 +32,7 @@ source "amazon-ebs" "ubuntu" {
       root-device-type    = "ebs"
       virtualization-type = "hvm"
     }
-    owners      = ["099720109477"]
+    owners      = ["099720109477"] # Canonical
     most_recent = true
   }
 }
@@ -42,6 +42,11 @@ build {
   sources = ["source.amazon-ebs.ubuntu"]
 
   provisioner "ansible" {
-    playbook_file = "ansible/playbook.yml"
+    playbook_file   = "ansible/playbook.yml"
+    user            = "ubuntu"  # Ensures Ansible uses correct SSH user
+    extra_arguments = [
+      "--become",                                # Allow privilege escalation
+      "--ssh-extra-args='-o StrictHostKeyChecking=no'"
+    ]
   }
 }
